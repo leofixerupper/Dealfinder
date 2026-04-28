@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deal Finder | Leandro Furest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gold: #C8A96E;
+    --gold-light: #E8D4A8;
+    --gold-dark: #9A7A45;
+    --navy: #0D1B2A;
+    --navy-mid: #1A2E42;
+    --navy-light: #243B55;
+    --off-white: #F5F1EA;
+    --cream: #EDE8DF;
+    --text-muted: #8A9BB0;
+    --success: #2ECC71;
+    --radius: 4px;
+    --radius-lg: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--off-white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 2rem;
+    background: rgba(13, 27, 42, 0.95);
+    border-bottom: 1px solid rgba(200, 169, 110, 0.15);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+
+  .nav-logo span { color: var(--off-white); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 7rem 1.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200, 169, 110, 0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 80% 80%, rgba(200, 169, 110, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border: 1px solid rgba(200, 169, 110, 0.4);
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    background: rgba(200, 169, 110, 0.06);
+  }
+
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: var(--off-white);
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--text-muted);
+    max-width: 560px;
+    margin: 0 auto 1rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .hero-name {
+    font-size: 0.9rem;
+    color: var(--gold);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    margin-bottom: 3rem;
+  }
+
+  /* CTA CARDS */
+  .cta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 780px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .cta-card {
+    background: rgba(26, 46, 66, 0.8);
+    border: 1px solid rgba(200, 169, 110, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% -20%, rgba(200, 169, 110, 0.08) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .cta-card:hover {
+    border-color: rgba(200, 169, 110, 0.5);
+    transform: translateY(-3px);
+  }
+
+  .cta-card:hover::before { opacity: 1; }
+
+  .cta-card.featured {
+    border-color: rgba(200, 169, 110, 0.45);
+    background: rgba(36, 59, 85, 0.9);
+  }
+
+  .cta-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    background: rgba(200, 169, 110, 0.12);
+    border: 1px solid rgba(200, 169, 110, 0.25);
+  }
+
+  .cta-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    color: var(--off-white);
+    font-weight: 400;
+  }
+
+  .cta-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .cta-btn {
+    margin-top: auto;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid rgba(200, 169, 110, 0.6);
+    background: transparent;
+    color: var(--gold);
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .cta-btn.primary {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+  }
+
+  .cta-btn:hover {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  /* RIBBONS */
+  .ribbon {
+    position: absolute;
+    top: 18px;
+    right: -22px;
+    width: 140px;
+    padding: 6px 0;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.3;
+    transform: rotate(35deg);
+    transform-origin: center;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .ribbon-no {
+    background: #C8A96E;
+    color: #0D1B2A;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .ribbon-si {
+    background: #2ECC71;
+    color: #0D1B2A;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  /* HOW IT WORKS */
+  .section {
+    padding: 6rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--off-white);
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  .section-desc {
+    color: var(--text-muted);
+    max-width: 540px;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .step {
+    background: rgba(26, 46, 66, 0.6);
+    border: 1px solid rgba(200, 169, 110, 0.1);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+
+  .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: rgba(200, 169, 110, 0.2);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+
+  .step h4 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--off-white);
+  }
+
+  .step p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* EARNINGS */
+  .earnings-band {
+    background: rgba(26, 46, 66, 0.5);
+    border-top: 1px solid rgba(200, 169, 110, 0.1);
+    border-bottom: 1px solid rgba(200, 169, 110, 0.1);
+    padding: 4rem 1.5rem;
+    text-align: center;
+  }
+
+  .earnings-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .earn-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .earn-amount {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .earn-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .earn-sep {
+    color: rgba(200, 169, 110, 0.3);
+    font-size: 1.5rem;
+    font-weight: 200;
+  }
+
+  /* FORM SECTIONS */
+  .form-section {
+    padding: 5rem 1.5rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .form-box {
+    background: rgba(26, 46, 66, 0.7);
+    border: 1px solid rgba(200, 169, 110, 0.2);
+    border-radius: 14px;
+    padding: 2.5rem;
+  }
+
+  .form-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(200, 169, 110, 0.1);
+  }
+
+  .form-header h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--off-white);
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+
+  .form-header p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-grid.single { grid-template-columns: 1fr; }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  input, select, textarea {
+    background: rgba(13, 27, 42, 0.6);
+    border: 1px solid rgba(200, 169, 110, 0.2);
+    border-radius: var(--radius);
+    color: var(--off-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    padding: 10px 14px;
+    width: 100%;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  input::placeholder, textarea::placeholder { color: rgba(138, 155, 176, 0.5); }
+  input:focus, select:focus, textarea:focus { border-color: rgba(200, 169, 110, 0.6); }
+
+  select { cursor: pointer; }
+  select option { background: var(--navy-mid); }
+
+  textarea { resize: vertical; min-height: 100px; }
+
+  .divider-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .divider-label::before,
+  .divider-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(200, 169, 110, 0.15);
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: all 0.2s;
+    margin-top: 1.5rem;
+  }
+
+  .submit-btn:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  .submit-btn:active { transform: translateY(0); }
+
+  /* SUCCESS STATE */
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+
+  .success-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: rgba(46, 204, 113, 0.12);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.8rem;
+  }
+
+  .success-msg h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--off-white);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+  }
+
+  .success-msg p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(200, 169, 110, 0.2);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 2rem;
+    background: rgba(13, 27, 42, 0.4);
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .tab-btn.active {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(200, 169, 110, 0.08);
+  }
+
+  footer strong { color: var(--gold); font-weight: 500; }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid rgba(200, 169, 110, 0.1);
+  }
+
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.2rem 0;
+    cursor: pointer;
+    text-align: left;
+    color: var(--off-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    transition: color 0.2s;
+  }
+
+  .faq-q:hover { color: var(--gold); }
+
+  .faq-arrow {
+    font-size: 1.1rem;
+    color: var(--gold);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+
+  .faq-q.open .faq-arrow { transform: rotate(180deg); }
+
+  .faq-a {
+    display: none;
+    padding: 0 0 1.2rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.75;
+  }
+
+  .faq-a.open { display: block; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Deal<span>Finder</span></div>
+  <div style="display:flex;gap:1rem;">
+    <a href="#como-funciona" style="color:var(--text-muted);text-decoration:none;font-size:0.875rem;">Cómo funciona</a>
+    <a href="#formulario" class="cta-btn" style="padding:8px 18px;text-decoration:none;font-size:0.85rem;">Enviar Deal</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Programa exclusivo · Estados Unidos
+  </div>
+
+  <h1>
+    Encuentra el deal.<br>
+    <em>Nosotros lo cerramos.</em><br>
+    Tú cobras.<br>
+    <span style="font-size:0.7em;color:var(--text-muted);font-style:normal;">SIN moverte de casa.</span>
+  </h1>
+
+  <p class="hero-sub">
+    Conecta vendedores motivados con nuestro equipo de compradores cash en cualquier mercado de EE.UU. Sin experiencia previa, sin inversión, sin riesgo... y todo el apoyo de mi Equipo de Wholesaling.
+  </p>
+
+  <p class="hero-name">Programa Deal Finder · Leandro Furest</p>
+
+  <div class="cta-grid">
+    <a href="#formulario" class="cta-card" onclick="setTab('oferta')">
+      <div class="ribbon ribbon-no">NO la tengo<br>Under Contract</div>
+      <div class="cta-icon">🏠</div>
+      <h3>Solicitar Precio</h3>
+      <p>¿Tienes una propiedad con potencial? Ingresa los datos y nuestro equipo de underwriting te responde con un precio de compra en menos de 24 horas.</p>
+      <button class="cta-btn primary">Solicitar precio →</button>
+    </a>
+
+    <a href="#formulario" class="cta-card featured" onclick="setTab('deal')">
+      <div class="ribbon ribbon-si">SÍ la tengo<br>Under Contract</div>
+      <div class="cta-icon">💼</div>
+      <h3>Enviar mi Deal</h3>
+      <p>¿Tienes una propiedad bajo contrato y buscas comprador? Súbela y nuestro equipo la evalúa para encontrar al buyer.</p>
+      <button class="cta-btn">Enviar deal →</button>
+    </a>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<div id="como-funciona" style="background:rgba(26,46,66,0.3);border-top:1px solid rgba(200,169,110,0.08);border-bottom:1px solid rgba(200,169,110,0.08);">
+<section class="section">
+  <p class="section-label">El proceso</p>
+  <h2>Así de simple</h2>
+  <p class="section-desc">No necesitas experiencia en bienes raíces. Solo necesitas conectar personas con propiedades y nuestra plataforma hace el resto.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h4>Encuentra al vendedor</h4>
+      <p>Habla con vecinos, amigos, familia. Busca propiedades con letreros de "For Sale by Owner" o situaciones difíciles.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h4>Regístralo aquí</h4>
+      <p>Llena el formulario con los datos del vendedor y la propiedad. Solo toma 3 minutos.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h4>Nosotros contactamos</h4>
+      <p>Nuestro equipo contacta al vendedor o directamente a ti, analiza la propiedad y coordina los próximos pasos para cerrar el deal.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h4>Tú cobras</h4>
+      <p>Si el deal se cierra, recibes tu comisión directamente en la mesa de cierre. Sin demoras.</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- EARNINGS -->
+<div class="earnings-band">
+  <p class="section-label" style="text-align:center;">Comisiones reales</p>
+  <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,3vw,2.2rem);color:var(--off-white);font-weight:400;text-align:center;">¿Cuánto puedes ganar?</h2>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:780px;margin:2rem auto 0;">
+
+    <div style="background:rgba(13,27,42,0.5);border:1px solid rgba(46,204,113,0.25);border-radius:12px;padding:1.75rem;">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(46,204,113,0.1);border:1px solid rgba(46,204,113,0.3);border-radius:100px;padding:4px 14px;margin-bottom:1rem;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#2ECC71;display:inline-block;"></span>
+        <span style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#2ECC71;">SÍ la tengo Under Contract</span>
+      </div>
+      <p style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--off-white);font-weight:400;margin-bottom:0.5rem;">JV 50/50</p>
+      <p style="font-size:0.875rem;color:var(--text-muted);line-height:1.7;">Si tienes la propiedad bajo contrato y nuestro equipo encuentra al comprador, dividimos la ganancia neta de gastos en partes iguales: <strong style="color:var(--off-white);">50% para ti, 50% para nosotros.</strong></p>
+    </div>
+
+    <div style="background:rgba(13,27,42,0.5);border:1px solid rgba(200,169,110,0.25);border-radius:12px;padding:1.75rem;">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(200,169,110,0.1);border:1px solid rgba(200,169,110,0.3);border-radius:100px;padding:4px 14px;margin-bottom:1rem;">
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--gold);display:inline-block;"></span>
+        <span style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);">NO la tengo Under Contract</span>
+      </div>
+      <p style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--off-white);font-weight:400;margin-bottom:0.5rem;">$5,000 – $20,000+</p>
+      <p style="font-size:0.875rem;color:var(--text-muted);line-height:1.7;">Si nos conectas con el vendedor y nuestro equipo cierra el trato, recibes <strong style="color:var(--off-white);">un porcentaje de la ganancia al cierre,</strong> pagado directamente en la mesa de cierre.</p>
+      <p style="font-size:0.72rem;color:var(--text-muted);margin-top:0.75rem;opacity:0.7;">*Los montos varían por deal y dependen de la ganancia total de la transacción.</p>
+    </div>
+
+  </div>
+  <p style="color:var(--text-muted);font-size:0.8rem;margin-top:1.5rem;text-align:center;">Pagado en el cierre · Sin demoras · Sin costos para ti</p>
+</div>
+
+<!-- FORM SECTION -->
+<section class="form-section" id="formulario">
+  <div style="text-align:center;margin-bottom:2rem;">
+    <p class="section-label">Tu próximo paso</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.5rem);color:var(--off-white);font-weight:400;">Ingresa la Propiedad</h2>
+    <p style="color:var(--text-muted);font-size:0.95rem;margin-top:0.5rem;">Tarda menos de 3 minutos</p>
+  </div>
+
+  <div class="form-box">
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" id="tab-oferta" onclick="switchTab('oferta')">
+        🏠 Solicitar Precio
+      </button>
+      <button class="tab-btn" id="tab-deal" onclick="switchTab('deal')">
+        💼 Enviar mi Deal
+      </button>
+    </div>
+
+    <!-- TAB: SOLICITAR PRECIO -->
+    <div class="tab-panel active" id="panel-oferta">
+      <div class="form-header">
+        <h3>Solicitar Precio</h3>
+        <p>Chequea si estamos interesados en la propiedad. Ingresa los siguientes datos y nuestro equipo de underwriting la analizará y te contactará en menos de 24 horas para indicarte un precio de compra.</p>
+      </div>
+
+      <form id="form-oferta" onsubmit="handleSubmit(event, 'oferta')">
+        <div class="divider-label">Datos de la Propiedad</div>
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>Dirección de la propiedad *</label>
+            <input type="text" name="direccion" placeholder="123 Main St, Miami, FL 33101" required>
+          </div>
+          <div class="form-group">
+            <label>Precio mínimo del vendedor *</label>
+            <input type="text" name="precio_minimo" placeholder="$180,000" required>
+          </div>
+          <div class="form-group">
+            <label>ARV estimado *</label>
+            <input type="text" name="arv" placeholder="$320,000" required>
+          </div>
+          <div class="form-group">
+            <label>Tu MAO estimado *</label>
+            <input type="text" name="mao" placeholder="$210,000" required>
+          </div>
+          <div class="form-group">
+            <label>Nivel de rehab / remodelación *</label>
+            <select name="rehab" required>
+              <option value="">Selecciona...</option>
+              <option value="turnkey">Turnkey — sin remodelación necesaria</option>
+              <option value="cosmetico">Cosmético — pintura, pisos, detalles menores</option>
+              <option value="medio">Medio — cocina, baños, actualizaciones generales</option>
+              <option value="profundo">Profundo — estructura, sistemas, remodelación total</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Motivo de venta / Situación del vendedor</label>
+            <textarea name="motivo" placeholder="Ej: divorcio, deudas, herencia, relocalización, ejecución hipotecaria, propietario ausente..."></textarea>
+          </div>
+        </div>
+
+        <div class="divider-label">Tus Datos (Deal Finder)</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Tu nombre *</label>
+            <input type="text" name="nombre_finder" placeholder="Tu nombre completo" required>
+          </div>
+          <div class="form-group">
+            <label>Tu teléfono / WhatsApp *</label>
+            <input type="tel" name="telefono_finder" placeholder="+1 (305) 000-0000" required>
+          </div>
+          <div class="form-group full">
+            <label>Tu email *</label>
+            <input type="email" name="email_finder" placeholder="tu@email.com" required>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Solicitar Precio →</button>
+      </form>
+
+      <div class="success-msg" id="success-oferta">
+        <div class="success-icon">✓</div>
+        <h3>¡Solicitud enviada!</h3>
+        <p>Nuestro equipo de underwriting analizará la propiedad y te contactará en menos de 24 horas con un precio de compra.</p>
+      </div>
+    </div>
+
+    <!-- TAB: ENVIAR DEAL -->
+    <div class="tab-panel" id="panel-deal">
+      <div class="form-header">
+        <h3>Enviar mi Deal</h3>
+        <p>¿Tienes una propiedad bajo contrato y quieres que nuestro equipo encuentre un comprador? Danos los detalles y la evaluaremos para encontrar comprador.</p>
+      </div>
+
+      <form id="form-deal" onsubmit="handleSubmit(event, 'deal')">
+        <div class="divider-label">Datos de la Propiedad</div>
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>Dirección completa *</label>
+            <input type="text" name="direccion" placeholder="123 Main St, Houston, TX 77001" required>
+          </div>
+          <div class="form-group">
+            <label>Precio under contract *</label>
+            <input type="text" name="precio_contrato" placeholder="$175,000" required>
+          </div>
+          <div class="form-group">
+            <label>ARV estimado *</label>
+            <input type="text" name="arv" placeholder="$290,000" required>
+          </div>
+          <div class="form-group">
+            <label>Fecha de inspección *</label>
+            <input type="date" name="fecha_inspeccion" required>
+          </div>
+          <div class="form-group">
+            <label>Fecha de cierre *</label>
+            <input type="date" name="fecha_cierre" required>
+          </div>
+          <div class="form-group full">
+            <label>¿Está listada en el MLS? *</label>
+            <select name="en_mls" required>
+              <option value="">Selecciona...</option>
+              <option value="si">Sí — está en el MLS</option>
+              <option value="no">No — es off-market</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="divider-label">Tus Datos (Deal Finder)</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Tu nombre *</label>
+            <input type="text" name="nombre_finder" placeholder="Tu nombre completo" required>
+          </div>
+          <div class="form-group">
+            <label>Tu teléfono / WhatsApp *</label>
+            <input type="tel" name="telefono_finder" placeholder="+1 (000) 000-0000" required>
+          </div>
+          <div class="form-group full">
+            <label>Tu email *</label>
+            <input type="email" name="email_finder" placeholder="tu@email.com" required>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Enviar mi Deal →</button>
+      </form>
+
+      <div class="success-msg" id="success-deal">
+        <div class="success-icon">✓</div>
+        <h3>¡Deal registrado!</h3>
+        <p>Recibimos tu deal. Nuestro equipo lo analizará y te contactará dentro de las próximas 24-48 horas con el resultado de la evaluación.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ SECTION -->
+<div style="background:rgba(26,46,66,0.3);border-top:1px solid rgba(200,169,110,0.08);">
+<section class="section" style="max-width:780px;">
+  <p class="section-label">Preguntas frecuentes</p>
+  <h2>FAQ</h2>
+
+  <div id="faq-list" style="margin-top:2rem;display:flex;flex-direction:column;gap:0;">
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Necesito licencia de bienes raíces para participar?</span>
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        No necesariamente. El programa Deal Finder está diseñado para personas con o sin licencia indistintamente. Tu rol es identificar propiedades y conectar vendedores motivados con nuestro equipo. Nosotros gestionamos todo el proceso legal y contractual.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Cuánto puedo ganar por cada deal?</span>
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        Las comisiones varían en porcentaje dependiendo del precio de compra y el margen del deal: $1,000 — $5,000 — $20,000... ¡no hay un techo! El pago se realiza directamente en la mesa de cierre, sin demoras.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Cuándo y cómo me pagan?</span>
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        El pago se realiza en el cierre de la transacción (closing). Recibes un cheque o transferencia directamente desde la compañía de título, en la misma mesa donde se cierra el deal. No hay pagos diferidos ni condiciones adicionales.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Puedo enviar deals desde cualquier estado de EE.UU.?</span>
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        Sí. Operamos virtualmente en múltiples mercados de EE.UU. Puedes enviar propiedades desde cualquier estado. Nuestro equipo evaluará el mercado específico y te confirmará si podemos avanzar.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Qué pasa si el deal no se cierra?</span>
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        Si el deal no llega a cerrarse por cualquier razón, no recibes comisión — pero tampoco tienes ningún costo ni penalización. El programa es 100% libre de riesgo para ti. Te animamos a seguir enviando oportunidades.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Puedo participar si vivo fuera de Estados Unidos?</span>
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        Absolutamente. Puedes enviar leads y deals desde cualquier país del mundo. Si conoces vendedores o propiedades en EE.UU., puedes participar y cobrar tu comisión al cierre desde donde estés.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Qué tipo de propiedades buscan?</span>
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        Principalmente casas unifamiliares off-market con vendedores motivados. Buscamos propiedades con descuento respecto al valor de mercado (ARV). Los mejores deals vienen de situaciones como divorcio, herencia, ejecución hipotecaria, relocalización urgente o propietarios con deudas.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Cuánto tiempo tarda el proceso desde que envío un deal?</span>
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        Nuestro equipo de underwriting revisa cada solicitud en menos de 24 horas. Si el deal cumple con nuestros criterios, te contactamos de inmediato para coordinar los próximos pasos. El proceso de cierre típicamente toma entre 14 y 30 días.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Qué es el ARV y el MAO? ¿Necesito saberlo para participar?</span>
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        ARV (After Repair Value) es el valor estimado de la propiedad una vez remodelada. MAO (Maximum Allowable Offer) es el precio máximo que tiene sentido pagar para que el deal sea rentable. Si no los conoces exactamente, da tu mejor estimado — nuestro equipo hará el análisis final.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Puedo enviar más de un deal al mismo tiempo?</span>
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        Sí, sin límite. Cuantos más deals envíes, mayores son tus posibilidades de cobrar comisiones. No hay restricción en la cantidad de propiedades que puedes registrar. Los Deal Finders más activos generan múltiples comisiones al mes.
+      </div>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>Leandro Furest</strong> · Deal Finder Program · Todos los derechos reservados</p>
+  <p style="margin-top:0.5rem;">Las comisiones se pagan en el cierre de la transacción. Sujeto a los términos del programa.</p>
+</footer>
+
+<script>
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  document.querySelectorAll('.faq-q').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+  if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
+}
+
+function setTab(tab) {
+  setTimeout(() => switchTab(tab), 100);
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
+}
+
+function handleSubmit(e, type) {
+  e.preventDefault();
+  const form = e.target;
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
+  data.tipo_envio = type;
+  data.fecha = new Date().toISOString();
+
+  console.log('Deal Finder Submission:', data);
+
+  // Aquí va la integración con tu backend / webhook
+  // fetch('/api/submit', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) })
+
+  form.style.display = 'none';
+  document.getElementById('success-' + type).style.display = 'block';
+}
+</script>
+
+</body>
+</html>
