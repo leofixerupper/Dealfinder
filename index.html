@@ -1017,19 +1017,42 @@ function switchTab(tab) {
   document.getElementById('panel-' + tab).classList.add('active');
 }
 
-function handleSubmit(e, type) {
+const ENDPOINTS = {
+  oferta: 'https://formspree.io/f/xzdyndgp',
+  deal:   'https://formspree.io/f/xgorgole'
+};
+
+async function handleSubmit(e, type) {
   e.preventDefault();
   const form = e.target;
+  const btn = form.querySelector('.submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
   const formData = new FormData(form);
-  const data = Object.fromEntries(formData.entries());
-  data.tipo_envio = type;
-  data.fecha = new Date().toISOString();
+  formData.append('tipo_envio', type);
+  formData.append('fecha', new Date().toLocaleString('es-MX', {timeZone: 'America/Mexico_City'}));
 
-  const ENDPOINTS = {oferta:'https://formspree.io/f/xzdyndgp',deal:'https://formspree.io/f/xgorgole'};
+  try {
+    const res = await fetch(ENDPOINTS[type], {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
 
-  const res = await fetch(ENDPOINTS[type], {method:'POST',body:formData,headers:{'Accept':'application/json'}});
-  if(res.ok){form.style.display='none';
-  document.getElementById('success-' + type).style.display = 'block';
+    if (res.ok) {
+      form.style.display = 'none';
+      document.getElementById('success-' + type).style.display = 'block';
+    } else {
+      btn.disabled = false;
+      btn.textContent = type === 'oferta' ? 'Solicitar Precio →' : 'Enviar mi Deal →';
+      alert('Hubo un error. Por favor intenta de nuevo.');
+    }
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = type === 'oferta' ? 'Solicitar Precio →' : 'Enviar mi Deal →';
+    alert('Error de conexión. Por favor intenta de nuevo.');
+  }
 }
 </script>
 
