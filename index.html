@@ -598,21 +598,14 @@
   .caso-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
+    background: rgba(13,27,42,0.9);
   }
 
   .caso-blur-bar {
-    position: absolute;
-    left: 0; right: 0;
-    height: 38%;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    background: rgba(13,27,42,0.3);
+    display: none;
   }
-
-  .caso-blur-top { top: 0; }
-  .caso-blur-bottom { bottom: 0; }
 
   .caso-placeholder {
     width: 100%;
