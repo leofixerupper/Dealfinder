@@ -567,7 +567,176 @@
 
   footer strong { color: var(--gold); font-weight: 500; }
 
-  /* FAQ */
+  /* CASOS DE ÉXITO */
+  .casos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .caso-card {
+    background: rgba(26,46,66,0.7);
+    border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .caso-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(200,169,110,0.45);
+  }
+
+  .caso-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: rgba(13,27,42,0.8);
+  }
+
+  .caso-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .caso-blur-bar {
+    position: absolute;
+    left: 0; right: 0;
+    height: 38%;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(13,27,42,0.3);
+  }
+
+  .caso-blur-top { top: 0; }
+  .caso-blur-bottom { bottom: 0; }
+
+  .caso-placeholder {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    gap: 8px;
+    background: rgba(13,27,42,0.5);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .caso-info {
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .caso-monto {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .caso-detalle {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+  }
+
+  /* GUIDE BLOCKS */
+  .guide-block { background: rgba(26,46,66,0.4); }
+
+  .guide-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    text-align: left;
+    color: var(--off-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+
+  .guide-btn:hover { background: rgba(200,169,110,0.05); }
+
+  .guide-arrow {
+    font-size: 1.1rem;
+    color: var(--gold);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+
+  .guide-btn.open .guide-arrow { transform: rotate(180deg); }
+
+  .guide-body {
+    display: none;
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .guide-body.open { display: block; }
+
+  .rule-item {
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .rule-no {
+    background: rgba(231,76,60,0.06);
+    border: 1px solid rgba(231,76,60,0.15);
+    color: var(--off-white);
+  }
+
+  .rule-yes {
+    background: rgba(46,204,113,0.05);
+    border: 1px solid rgba(46,204,113,0.15);
+    color: var(--off-white);
+  }
+
+  .q-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .q-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+
+  .q-item {
+    padding: 10px 14px;
+    background: rgba(13,27,42,0.5);
+    border: 1px solid rgba(200,169,110,0.1);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--off-white);
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+
+  .q-item::before {
+    content: '→ ';
+    color: var(--gold);
+    font-weight: 600;
+  }
   .faq-item {
     border-bottom: 1px solid rgba(200, 169, 110, 0.1);
   }
@@ -620,6 +789,7 @@
   <div class="nav-logo">Deal<span>Finder</span></div>
   <div style="display:flex;gap:1rem;">
     <a href="#como-funciona" style="color:var(--text-muted);text-decoration:none;font-size:0.875rem;">Cómo funciona</a>
+    <a href="#guia" style="color:var(--text-muted);text-decoration:none;font-size:0.875rem;">Guía</a>
     <a href="#formulario" class="cta-btn" style="padding:8px 18px;text-decoration:none;font-size:0.85rem;">Enviar Deal</a>
   </div>
 </nav>
@@ -723,6 +893,83 @@
 
   </div>
   <p style="color:var(--text-muted);font-size:0.8rem;margin-top:1.5rem;text-align:center;">Pagado en el cierre · Sin demoras · Sin costos para ti</p>
+</div>
+
+<!-- CASOS DE ÉXITO -->
+<div style="border-top:1px solid rgba(200,169,110,0.08);padding:5rem 1.5rem;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <p class="section-label">Resultados reales</p>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);color:var(--off-white);font-weight:400;margin-bottom:0.75rem;">Esto es lo que se siente cobrar</h2>
+      <p style="color:var(--text-muted);font-size:0.95rem;max-width:480px;margin:0 auto;">Transferencias reales de deals cerrados. Los saldos de cuenta están protegidos — los montos son los que importan.</p>
+    </div>
+
+    <div class="casos-grid">
+
+      <div class="caso-card">
+        <div class="caso-img-wrap">
+          <img src="img/caso1.jpg" alt="Transferencia deal 1" class="caso-img" onerror="this.parentElement.innerHTML='<div class=caso-placeholder>📸<br>Screenshot 1</div>'">
+          <div class="caso-blur-bar caso-blur-top"></div>
+          <div class="caso-blur-bar caso-blur-bottom"></div>
+        </div>
+        <div class="caso-info">
+          <span class="caso-monto">$18,000</span>
+          <span class="caso-detalle">Deal cerrado · Panama City, FL</span>
+        </div>
+      </div>
+
+      <div class="caso-card">
+        <div class="caso-img-wrap">
+          <img src="img/caso2.jpg" alt="Transferencia deal 2" class="caso-img" onerror="this.parentElement.innerHTML='<div class=caso-placeholder>📸<br>Screenshot 2</div>'">
+          <div class="caso-blur-bar caso-blur-top"></div>
+          <div class="caso-blur-bar caso-blur-bottom"></div>
+        </div>
+        <div class="caso-info">
+          <span class="caso-monto">$26,000</span>
+          <span class="caso-detalle">Deal cerrado · Durham, NC</span>
+        </div>
+      </div>
+
+      <div class="caso-card">
+        <div class="caso-img-wrap">
+          <img src="img/caso3.jpg" alt="Transferencia deal 3" class="caso-img" onerror="this.parentElement.innerHTML='<div class=caso-placeholder>📸<br>Screenshot 3</div>'">
+          <div class="caso-blur-bar caso-blur-top"></div>
+          <div class="caso-blur-bar caso-blur-bottom"></div>
+        </div>
+        <div class="caso-info">
+          <span class="caso-monto">$47,250</span>
+          <span class="caso-detalle">Deal cerrado · Hephzibah, GA</span>
+        </div>
+      </div>
+
+      <div class="caso-card">
+        <div class="caso-img-wrap">
+          <img src="img/caso4.jpg" alt="Transferencia deal 4" class="caso-img" onerror="this.parentElement.innerHTML='<div class=caso-placeholder>📸<br>Screenshot 4</div>'">
+          <div class="caso-blur-bar caso-blur-top"></div>
+          <div class="caso-blur-bar caso-blur-bottom"></div>
+        </div>
+        <div class="caso-info">
+          <span class="caso-monto">$26,810</span>
+          <span class="caso-detalle">Deal cerrado · Fayetteville, NC</span>
+        </div>
+      </div>
+
+      <div class="caso-card">
+        <div class="caso-img-wrap">
+          <img src="img/caso5.jpg" alt="Transferencia deal 5" class="caso-img" onerror="this.parentElement.innerHTML='<div class=caso-placeholder>📸<br>Screenshot 5</div>'">
+          <div class="caso-blur-bar caso-blur-top"></div>
+          <div class="caso-blur-bar caso-blur-bottom"></div>
+        </div>
+        <div class="caso-info">
+          <span class="caso-monto">$18,999</span>
+          <span class="caso-detalle">Deal cerrado · Eastover, NC</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="text-align:center;color:var(--text-muted);font-size:0.8rem;margin-top:2rem;opacity:0.7;">Los saldos de cuenta están protegidos por privacidad. Los montos corresponden a la comisión recibida en cada cierre.</p>
+  </div>
 </div>
 
 <!-- FORM SECTION -->
@@ -992,6 +1239,153 @@
 </section>
 </div>
 
+<!-- GUÍA DE CALIFICACIÓN -->
+<div id="guia" style="background:rgba(13,27,42,0.8);border-top:1px solid rgba(200,169,110,0.08);">
+<section class="section" style="max-width:860px;">
+  <p class="section-label">Antes de enviar tu lead</p>
+  <h2>Guía del Deal Finder</h2>
+  <p class="section-desc">Lee esto una vez. Te ahorra tiempo a vos y a nosotros — y aumenta tus chances de cobrar.</p>
+
+  <div style="display:flex;flex-direction:column;gap:0;border:1px solid rgba(200,169,110,0.15);border-radius:12px;overflow:hidden;">
+
+    <!-- BLOQUE ROJO: qué NO enviar -->
+    <div class="guide-block" id="gb1">
+      <button class="guide-btn" onclick="toggleGuide('gb1')">
+        <span style="display:flex;align-items:center;gap:12px;">
+          <span style="width:32px;height:32px;border-radius:50%;background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🚫</span>
+          <span>Qué leads NO debés enviar</span>
+        </span>
+        <span class="guide-arrow">▾</span>
+      </button>
+      <div class="guide-body">
+        <p style="color:var(--text-muted);margin-bottom:1.25rem;font-size:0.9rem;">Nuestro equipo <strong style="color:var(--off-white);">no analiza leads frías</strong>. Si no has tenido contacto real con el vendedor, no la envíes — no vamos a invertir tiempo en propiedades donde nadie ha hablado con el dueño.</p>
+        <div style="display:flex;flex-direction:column;gap:0.6rem;">
+          <div class="rule-item rule-no">❌ Propiedades que encontraste en Zillow, Redfin o el MLS sin haber contactado al dueño</div>
+          <div class="rule-item rule-no">❌ Leads donde solo viste el letrero "For Sale" pero nunca hablaste con nadie</div>
+          <div class="rule-item rule-no">❌ Datos de listas que compraste pero que no has trabajado</div>
+          <div class="rule-item rule-no">❌ Propiedades donde no sabés el precio mínimo que acepta el vendedor</div>
+          <div class="rule-item rule-no">❌ Vendedores que no han confirmado que quieren una oferta cash</div>
+          <div class="rule-item rule-no">❌ Leads donde no conocés la condición de la propiedad ni la motivación de venta</div>
+        </div>
+        <div style="margin-top:1.25rem;padding:1rem;background:rgba(231,76,60,0.06);border:1px solid rgba(231,76,60,0.2);border-radius:8px;">
+          <p style="font-size:0.85rem;color:var(--text-muted);"><strong style="color:#e74c3c;">Regla simple:</strong> Si no has hablado con el vendedor, no tenés datos de primera mano sobre su situación, motivación y precio — no la envíes. No la vamos a analizar.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:1px;background:rgba(200,169,110,0.1);"></div>
+
+    <!-- BLOQUE VERDE: qué SÍ enviar -->
+    <div class="guide-block" id="gb2">
+      <button class="guide-btn" onclick="toggleGuide('gb2')">
+        <span style="display:flex;align-items:center;gap:12px;">
+          <span style="width:32px;height:32px;border-radius:50%;background:rgba(46,204,113,0.12);border:1px solid rgba(46,204,113,0.25);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">✅</span>
+          <span>Qué leads SÍ debés enviar</span>
+        </span>
+        <span class="guide-arrow">▾</span>
+      </button>
+      <div class="guide-body">
+        <p style="color:var(--text-muted);margin-bottom:1.25rem;font-size:0.9rem;">Una lead calificada es aquella donde <strong style="color:var(--off-white);">ya tuviste interacción real</strong> con el vendedor y podés responder estas preguntas con información de primera mano:</p>
+        <div style="display:flex;flex-direction:column;gap:0.6rem;">
+          <div class="rule-item rule-yes">✅ Hablaste directamente con el propietario (llamada, visita o mensaje)</div>
+          <div class="rule-item rule-yes">✅ Conocés su motivación de venta (divorcio, deudas, herencia, relocalización, etc.)</div>
+          <div class="rule-item rule-yes">✅ Sabés el precio mínimo que está dispuesto a aceptar</div>
+          <div class="rule-item rule-yes">✅ Tenés una idea de la condición de la propiedad</div>
+          <div class="rule-item rule-yes">✅ El vendedor sabe que puede recibir una oferta cash y está abierto a eso</div>
+          <div class="rule-item rule-yes">✅ Conocés su timeline — cuándo quiere o necesita cerrar</div>
+        </div>
+        <div style="margin-top:1.25rem;padding:1rem;background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.2);border-radius:8px;">
+          <p style="font-size:0.85rem;color:var(--text-muted);"><strong style="color:#2ecc71;">Lo que nosotros hacemos con esa info:</strong> la analizamos, corremos los números, y te confirmamos si nos interesa o no — y cuál es el MAO (precio máximo que podemos ofrecer).</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:1px;background:rgba(200,169,110,0.1);"></div>
+
+    <!-- BLOQUE PREGUNTAS CLAVE -->
+    <div class="guide-block" id="gb3">
+      <button class="guide-btn" onclick="toggleGuide('gb3')">
+        <span style="display:flex;align-items:center;gap:12px;">
+          <span style="width:32px;height:32px;border-radius:50%;background:rgba(200,169,110,0.12);border:1px solid rgba(200,169,110,0.25);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🎯</span>
+          <span>Preguntas clave para calificar al vendedor</span>
+        </span>
+        <span class="guide-arrow">▾</span>
+      </button>
+      <div class="guide-body">
+        <p style="color:var(--text-muted);margin-bottom:1.5rem;font-size:0.9rem;">Estas son las preguntas que tenés que hacerle al vendedor antes de enviar el lead. Cubren los 4 pilares: <strong style="color:var(--off-white);">motivación, condición, precio y timeline.</strong></p>
+
+        <!-- TABS ES/EN -->
+        <div style="display:flex;gap:0;border:1px solid rgba(200,169,110,0.2);border-radius:6px;overflow:hidden;margin-bottom:1.5rem;max-width:300px;">
+          <button class="lang-btn active" id="lang-es" onclick="switchLang('es')" style="flex:1;padding:8px;border:none;background:var(--gold);color:var(--navy);font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;">🇪🇸 Español</button>
+          <button class="lang-btn" id="lang-en" onclick="switchLang('en')" style="flex:1;padding:8px;border:none;background:transparent;color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;">🇺🇸 English</button>
+        </div>
+
+        <!-- ESPAÑOL -->
+        <div id="questions-es">
+          <div class="q-group">
+            <div class="q-label">💡 Motivación</div>
+            <div class="q-item">¿Por qué está pensando en vender la propiedad?</div>
+            <div class="q-item">¿Qué lo llevó a tomar esta decisión en este momento?</div>
+            <div class="q-item">¿Tiene alguna situación urgente que lo esté presionando?</div>
+          </div>
+          <div class="q-group">
+            <div class="q-label">🏠 Condición de la propiedad</div>
+            <div class="q-item">¿En qué condición está la propiedad actualmente?</div>
+            <div class="q-item">¿Tiene reparaciones pendientes o problemas que conozca?</div>
+            <div class="q-item">¿Cuándo fue la última renovación importante?</div>
+          </div>
+          <div class="q-group">
+            <div class="q-label">💰 Precio</div>
+            <div class="q-item">¿Cuánto esperaría recibir por la propiedad?</div>
+            <div class="q-item">¿Ese precio es flexible o es lo mínimo que aceptaría?</div>
+            <div class="q-item">¿Sabe cuánto debe de hipoteca actualmente?</div>
+          </div>
+          <div class="q-group">
+            <div class="q-label">📅 Timeline</div>
+            <div class="q-item">¿Para cuándo necesitaría o le gustaría cerrar la venta?</div>
+            <div class="q-item">¿Está hablando con otros compradores en este momento?</div>
+            <div class="q-item">Si le hacemos una oferta justa, ¿estaría listo para avanzar rápido?</div>
+          </div>
+        </div>
+
+        <!-- ENGLISH -->
+        <div id="questions-en" style="display:none;">
+          <div class="q-group">
+            <div class="q-label">💡 Motivation</div>
+            <div class="q-item">Why are you thinking about selling the property?</div>
+            <div class="q-item">What led you to make this decision at this time?</div>
+            <div class="q-item">Is there any urgent situation putting pressure on you?</div>
+          </div>
+          <div class="q-group">
+            <div class="q-label">🏠 Property Condition</div>
+            <div class="q-item">What condition is the property currently in?</div>
+            <div class="q-item">Are there any pending repairs or issues you're aware of?</div>
+            <div class="q-item">When was the last major renovation done?</div>
+          </div>
+          <div class="q-group">
+            <div class="q-label">💰 Price</div>
+            <div class="q-item">How much would you expect to receive for the property?</div>
+            <div class="q-item">Is that price flexible or is it the minimum you'd accept?</div>
+            <div class="q-item">Do you know how much you currently owe on the mortgage?</div>
+          </div>
+          <div class="q-group">
+            <div class="q-label">📅 Timeline</div>
+            <div class="q-item">When would you need or like to close the sale?</div>
+            <div class="q-item">Are you currently talking to other buyers?</div>
+            <div class="q-item">If we make you a fair offer, would you be ready to move forward quickly?</div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.5rem;padding:1rem;background:rgba(200,169,110,0.06);border:1px solid rgba(200,169,110,0.2);border-radius:8px;">
+          <p style="font-size:0.85rem;color:var(--text-muted);"><strong style="color:var(--gold);">Tip:</strong> No tenés que hacer todas las preguntas de una sola vez. Lo importante es que antes de enviar el lead, tengas respuestas claras a las 4 categorías: motivación, condición, precio y timeline.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <p>© 2025 <strong>Leandro Furest</strong> · Deal Finder Program · Todos los derechos reservados</p>
@@ -999,6 +1393,25 @@
 </footer>
 
 <script>
+function toggleGuide(id) {
+  const block = document.getElementById(id);
+  const btn = block.querySelector('.guide-btn');
+  const body = block.querySelector('.guide-body');
+  const isOpen = btn.classList.contains('open');
+  // close all
+  document.querySelectorAll('.guide-btn').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+  if (!isOpen) { btn.classList.add('open'); body.classList.add('open'); }
+}
+
+function switchLang(lang) {
+  document.getElementById('questions-es').style.display = lang === 'es' ? 'block' : 'none';
+  document.getElementById('questions-en').style.display = lang === 'en' ? 'block' : 'none';
+  document.getElementById('lang-es').style.background = lang === 'es' ? 'var(--gold)' : 'transparent';
+  document.getElementById('lang-es').style.color = lang === 'es' ? 'var(--navy)' : 'var(--text-muted)';
+  document.getElementById('lang-en').style.background = lang === 'en' ? 'var(--gold)' : 'transparent';
+  document.getElementById('lang-en').style.color = lang === 'en' ? 'var(--navy)' : 'var(--text-muted)';
+}
+
 function toggleFaq(btn) {
   const answer = btn.nextElementSibling;
   const isOpen = btn.classList.contains('open');
