@@ -1423,11 +1423,9 @@ function switchTab(tab) {
   document.getElementById('panel-' + tab).classList.add('active');
 }
 
-const MAKE_WEBHOOK = 'https://hook.us2.make.com/xdv0ja5dm3vaf1y8py5x5s1a1jlmh';
-
 const ENDPOINTS = {
-  oferta: MAKE_WEBHOOK,
-  deal:   MAKE_WEBHOOK
+  oferta: 'https://formspree.io/f/xzdyndgp',
+  deal:   'https://formspree.io/f/xgorgole'
 };
 
 async function handleSubmit(e, type) {
@@ -1438,15 +1436,14 @@ async function handleSubmit(e, type) {
   btn.textContent = 'Enviando...';
 
   const formData = new FormData(form);
-  const data = Object.fromEntries(formData.entries());
-  data.tipo_envio = type;
-  data.fecha = new Date().toLocaleString('es-MX', {timeZone: 'America/Mexico_City'});
+  formData.append('tipo_envio', type);
+  formData.append('fecha', new Date().toLocaleString('es-MX', {timeZone: 'America/Mexico_City'}));
 
   try {
     const res = await fetch(ENDPOINTS[type], {
       method: 'POST',
-      body: JSON.stringify(data),
-      headers: { 'Content-Type': 'application/json' }
+      body: formData,
+      headers: { 'Accept': 'application/json' }
     });
 
     if (res.ok) {
