@@ -643,6 +643,44 @@
     letter-spacing: 0.03em;
   }
 
+  /* UPLOAD AREA */
+  .upload-area {
+    border: 2px dashed rgba(200,169,110,0.35);
+    border-radius: 10px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    background: rgba(13,27,42,0.3);
+  }
+
+  .upload-area:hover {
+    border-color: var(--gold);
+    background: rgba(200,169,110,0.05);
+  }
+
+  .upload-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+
+  .upload-text {
+    font-size: 0.95rem;
+    color: var(--off-white);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .upload-hint {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .upload-selected {
+    font-size: 0.8rem;
+    color: var(--gold);
+    font-weight: 500;
+    margin: 0;
+  }
+
   /* GUIDE BLOCKS */
   .guide-block { background: rgba(26,46,66,0.4); }
 
@@ -1026,6 +1064,32 @@
           </div>
         </div>
 
+        <div class="divider-label">Datos del Vendedor</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nombre del vendedor *</label>
+            <input type="text" name="nombre_vendedor" placeholder="Nombre completo del vendedor" required>
+          </div>
+          <div class="form-group">
+            <label>Teléfono del vendedor *</label>
+            <input type="tel" name="telefono_vendedor" placeholder="+1 (305) 000-0000" required>
+          </div>
+        </div>
+
+        <div class="divider-label">Fotos de la Propiedad</div>
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>Subir fotos <span style="color:var(--text-muted);font-weight:400;">(opcional — hasta 5 fotos)</span></label>
+            <div class="upload-area" onclick="document.getElementById('fotos-oferta').click()">
+              <div class="upload-icon">📷</div>
+              <p class="upload-text">Haz clic para subir fotos o arrastra aquí</p>
+              <p class="upload-hint">JPG, PNG, HEIC · Máx. 10MB por foto</p>
+              <p class="upload-selected" id="fotos-oferta-label">Ninguna foto seleccionada</p>
+            </div>
+            <input type="file" id="fotos-oferta" name="fotos" accept="image/*" multiple style="display:none" onchange="updateFileLabel(this,'fotos-oferta-label')">
+          </div>
+        </div>
+
         <div class="divider-label">Tus Datos (Deal Finder)</div>
         <div class="form-grid">
           <div class="form-group">
@@ -1089,6 +1153,20 @@
               <option value="si">Sí — está en el MLS</option>
               <option value="no">No — es off-market</option>
             </select>
+          </div>
+        </div>
+
+        <div class="divider-label">Fotos de la Propiedad</div>
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>Subir fotos <span style="color:var(--text-muted);font-weight:400;">(opcional — hasta 5 fotos)</span></label>
+            <div class="upload-area" onclick="document.getElementById('fotos-deal').click()">
+              <div class="upload-icon">📷</div>
+              <p class="upload-text">Haz clic para subir fotos o arrastra aquí</p>
+              <p class="upload-hint">JPG, PNG, HEIC · Máx. 10MB por foto</p>
+              <p class="upload-selected" id="fotos-deal-label">Ninguna foto seleccionada</p>
+            </div>
+            <input type="file" id="fotos-deal" name="fotos" accept="image/*" multiple style="display:none" onchange="updateFileLabel(this,'fotos-deal-label')">
           </div>
         </div>
 
@@ -1386,6 +1464,19 @@
 </footer>
 
 <script>
+function updateFileLabel(input, labelId) {
+  const label = document.getElementById(labelId);
+  if (input.files && input.files.length > 0) {
+    const count = input.files.length;
+    label.textContent = count === 1
+      ? `1 foto seleccionada: ${input.files[0].name}`
+      : `${count} fotos seleccionadas`;
+    label.style.color = 'var(--gold)';
+  } else {
+    label.textContent = 'Ninguna foto seleccionada';
+  }
+}
+
 function toggleGuide(id) {
   const block = document.getElementById(id);
   const btn = block.querySelector('.guide-btn');
